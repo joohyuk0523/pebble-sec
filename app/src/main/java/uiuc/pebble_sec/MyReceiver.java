@@ -7,14 +7,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.Telephony.SmsMessage;
+import android.telephony.*;
 import android.util.Log;
 import android.widget.Toast;
 
 
 public class MyReceiver extends BroadcastReceiver {
 
-    final SmsManager sms = SmsManger.getDefault();
+    final SmsManager sms = SmsManager.getDefault();
 
     private static final String TAG = "SMSBroadcastReceiver";
 
@@ -29,29 +29,30 @@ public class MyReceiver extends BroadcastReceiver {
         if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
 
             //gets bundle object from correct place
-            final Bundle bundle = getintent().getExtra();
+            final Bundle bundle = intent.getExtras();
 
             try {
                 if (bundle != null) {
                     final Object[] pdusObj = (Object[]) bundle.get("pdus");
 
                     for (int i = 0; i < pdusObj.length; i++) {
-                        SmsMessage messages = SmsMessage.createFromPdu((byte[]) pdus[i]);
-                        String text = messages.getDisplayMessageBody().toString();
+                        SmsMessage messages = SmsMessage.createFromPdu((byte[]) pdusObj[i]);
+                        String text = messages.getDisplayMessageBody();
+                        String sender = currentMessage.getDisplayOriginatingAddress();
 
                         Log.i("Receiver", "message: " + text);
                     }
 
                     //message alert to check if it works after try
-                    Toast.makeText(context, "Received Text: " + text, Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "sender" + sender, "Received Text: " + text, Toast.LENGTH_LONG).show();
 
-
+                }
                     String action = intent.getAction();
                     Log.i("Receiver", "Broadcast received: "+action);
                     if(action.equals("my.action.string")){
                         String state = intent.getExtras().getString("extra");
 
-                    //send broadcast to RSA code
+                    /*send broadcast to RSA code
                     Intent i = new Intent("my.action.string");
                     intent.putExtra("text","bundle");
                     intent.setAction("com.android.activity.SEND_DATA");

@@ -24,7 +24,7 @@
             android:enabled="true"
             android:exported="true"
             <intent-filter>
-                <action android:name = "android.provider.Telephony.SMS_RECEIVED" />
+                <action android:name = "android.provider.telephony.SMS_RECEIVED" />
                 <acion android:name = "my.action.string" />
             </intent-filter>
         </receiver>
