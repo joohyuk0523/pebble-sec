@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/pebble-sec.iml" filepath="$PROJECT_DIR$/pebble-sec.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pebble-sec2.iml" filepath="$PROJECT_DIR$/pebble-sec2.iml" />
     </modules>
   </component>
 </project>
