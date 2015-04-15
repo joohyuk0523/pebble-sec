@@ -29,7 +29,7 @@ public class MyReceiver extends BroadcastReceiver {
         if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
 
             //gets bundle object from correct place
-            final Bundle bundle = intent().getExtra();
+            final Bundle bundle = getintent().getExtra();
 
             try {
                 if (bundle != null) {
