@@ -40,18 +40,18 @@ public class MyReceiver extends BroadcastReceiver {
                         String text = messages.getDisplayMessageBody();
                         String sender = messages.getDisplayOriginatingAddress();
 
-                        Log.i("Receiver", "sender: " +sender+ "message: " +text);
+                        Log.i("Receiver", "sender: " + sender + "message: " + text);
 
 
                         //message alert to check if it works after try
-                        Toast.makeText(context, "sender" +sender+ "Received Text: " +text, Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "sender" + sender + "Received Text: " + text, Toast.LENGTH_LONG).show();
                     }
                 }
 
 
+            } catch (Exception e) {
+                Log.e("Receiver", "Exception Receiver" + e);
             }
-            catch(Exception e){
-                Log.e("Receiver","Exception Receiver" +e);
-            }
+        }
     }
 }
