@@ -38,49 +38,20 @@ public class MyReceiver extends BroadcastReceiver {
                     for (int i = 0; i < pdusObj.length; i++) {
                         SmsMessage messages = SmsMessage.createFromPdu((byte[]) pdusObj[i]);
                         String text = messages.getDisplayMessageBody();
-                        String sender = currentMessage.getDisplayOriginatingAddress();
+                        String sender = messages.getDisplayOriginatingAddress();
 
-                        Log.i("Receiver", "message: " + text);
+                        Log.i("Receiver", "sender: " +sender+ "message: " +text);
+
+
+                        //message alert to check if it works after try
+                        Toast.makeText(context, "sender" +sender+ "Received Text: " +text, Toast.LENGTH_LONG).show();
                     }
-
-                    //message alert to check if it works after try
-                    Toast.makeText(context, "sender" + sender, "Received Text: " + text, Toast.LENGTH_LONG).show();
-
-                }
-                    String action = intent.getAction();
-                    Log.i("Receiver", "Broadcast received: "+action);
-                    if(action.equals("my.action.string")){
-                        String state = intent.getExtras().getString("extra");
-
-                    /*send broadcast to RSA code
-                    Intent i = new Intent("my.action.string");
-                    intent.putExtra("text","bundle");
-                    intent.setAction("com.android.activity.SEND_DATA");
-                    context.sendBroadcast(i);
-
-                    /*put in RSA
-                    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver(){
-                        @Override
-                        public void OnReceive(Context context, Intent intent){
-                            String text = intent.getStringExtra("text");
-                            Log.d("receiver","Got message: "+message);*/
-
-                    //Register Receiver
-                        LocalBroadcastManager.getInstance(mContext.registerReceiver(mMessageReceiver, new IntentFilter("com.android.activity.SEND_DATA")));
-
-                        }
-                    }
-
-
                 }
 
 
             }
             catch(Exception e){
                 Log.e("Receiver","Exception Receiver" +e);
-
-
             }
-
     }
 }
