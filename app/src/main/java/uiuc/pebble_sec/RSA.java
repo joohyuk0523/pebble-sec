@@ -53,6 +53,7 @@ public class RSA {
         return b2;
     }
 
+
     // generateKey function is used to generate Asymmetric key pair, public key and private key
     public void generateKey() {
         KeyPairGenerator gen;
@@ -78,10 +79,10 @@ public class RSA {
     }
 
     // encrypt function is used to catch exception if there is an error with the encryption
-    public final static String encrypt(String text, PublicKey k, int i) {
+    public final static String encrypt(String text) {
         try{
             System.out.println("encrypt()");
-            return byte2hex(encrypt(text, k));
+            return byte2hex(encrypt(text, uk));
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -96,9 +97,9 @@ public class RSA {
     }
 
     // decrypt function is used to catch exception when there is an error with decryption
-    public final static String decrypt(String data, PrivateKey kk, int i) {
+    public final static String decrypt(String data) {
         try{
-            return new String(decrypt(hex2byte(data.getBytes()), kk));
+            return new String(decrypt(hex2byte(data.getBytes()), rk));
         } catch (Exception e){
             e.printStackTrace();
         }

@@ -27,7 +27,7 @@ public class MainActivity extends ActionBarActivity {
         enButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
-                    Raw.setText(RSA.encrypt(input.getText().toString(), RSA.getPubKey()));
+                    Raw.setText(RSA.encrypt(input.getText().toString()));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -37,7 +37,7 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View v) {
                 try {
                     output.setText(String.valueOf(RSA.decrypt(Raw.getText()
-                            .toString(), RSA.getPriKey())));
+                            .toString())));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
