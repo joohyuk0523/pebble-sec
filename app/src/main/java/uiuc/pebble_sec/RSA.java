@@ -18,6 +18,13 @@ public class RSA {
     public static PublicKey uk = null;
     public static PrivateKey rk = null;
 
+    public static PublicKey getPubKey(){
+        return uk;
+    }
+    public static PrivateKey getPriKey(){
+        return rk;
+    }
+
     // byte2hex function is used to convert byte array to hex
     public static String byte2hex(byte[] b) {
         String hs = "";
@@ -37,6 +44,7 @@ public class RSA {
     public static byte[] hex2byte(byte[] b) {
         if ((b.length % 2) != 0)
             throw new IllegalArgumentException("hello");
+
         byte[] b2 = new byte[b.length / 2];
         for (int n = 0; n < b.length; n += 2) {
             String item = new String(b, n, 2);
@@ -49,8 +57,8 @@ public class RSA {
     public void generateKey() {
         KeyPairGenerator gen;
         try {
-            gen = KeyPairGenerator.getInstance(RSA);
-            gen.initialize(64, new SecureRandom());
+            gen = KeyPairGenerator.getInstance("RSA");
+            gen.initialize(1024, new SecureRandom());
             KeyPair keyPair = gen.generateKeyPair();
             uk = keyPair.getPublic();
             rk = keyPair.getPrivate();
@@ -64,15 +72,16 @@ public class RSA {
     // encrypt function is used to perform encryption using Public key
     private static byte[] encrypt(String text, PublicKey pubRSA)
         throws Exception {
-        Cipher cipher = Cipher.getInstance(RSA);
+        Cipher cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.ENCRYPT_MODE, pubRSA);
         return cipher.doFinal(text.getBytes());
     }
 
     // encrypt function is used to catch exception if there is an error with the encryption
-    public final static String encrypt(String text, PublicKey kk, int i) {
+    public final static String encrypt(String text, PublicKey k, int i) {
         try{
-            return byte2hex(encrypt(text, kk));
+            System.out.println("encrypt()");
+            return byte2hex(encrypt(text, k));
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -80,17 +89,30 @@ public class RSA {
     }
 
     // decrypt function is used to perform the real description with Private key
-    private static byte[] decrypt(byte[] src, PrivateKey kk) throws Exception {
-        Cipher cipher = Cipher.getInstance(RSA);
-        cipher.init(Cipher.DECRYPT_MODE, kk);
+    private static byte[] decrypt(byte[] src, PrivateKey k) throws Exception {
+        Cipher cipher = Cipher.getInstance("RSA");
+        cipher.init(Cipher.DECRYPT_MODE, k);
         return cipher.doFinal(src);
     }
 
     // decrypt function is used to catch exception when there is an error with decryption
-    public final static String decrypt(String data, PrivateKey kkk, int i) {
+    public final static String decrypt(String data, PrivateKey kk, int i) {
         try{
-            return new String(decrypt(hex2byte(data.getBytes()), kkk));
+            return new String(decrypt(hex2byte(data.getBytes()), kk));
         } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String testcase(String test){
+        generateKey();
+        try {
+            System.out.println("testcase()");
+            byte[] encrypted = encrypt(test, uk);
+            byte[] decrypted = decrypt(encrypted , rk);
+            return byte2hex(decrypted);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
