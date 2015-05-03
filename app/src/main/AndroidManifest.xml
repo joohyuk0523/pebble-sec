@@ -22,7 +22,7 @@
         <receiver
             android:name=".MyReceiver"
             android:enabled="true"
-            android:exported="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name = "android.provider.telephony.SMS_RECEIVED" />
                 <acion android:name = "my.action.string" />
@@ -34,9 +34,9 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="17"/>
 
-    <uses-permission android.name ="android.permission.RECEIVE_SMS"></uses-permission>
-    <uses-permission android.name ="android.permission.READ_SMS"/>
-    <uses-permission android.name ="android.permission.SEND_SMS"></uses-permission>
+    <uses-permission android:name ="android.permission.RECEIVE_SMS"></uses-permission>
+    <uses-permission android:name ="android.permission.READ_SMS"/>
+    <uses-permission android:name ="android.permission.SEND_SMS"></uses-permission>
 
 
 
