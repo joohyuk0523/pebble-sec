@@ -4,14 +4,46 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("onCreate()");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        RSA testobj = new RSA();
+        testobj.generateKey();
+        final Button enButton = (Button) findViewById(R.id.enbutton);
+        final Button deButton = (Button) findViewById(R.id.debutton);
+        final EditText input = (EditText) findViewById(R.id.Input);
+        final EditText Raw = (EditText) findViewById(R.id.raw);
+        final EditText output = (EditText) findViewById(R.id.OriginText);
+        enButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    Raw.setText(RSA.encrypt(input.getText().toString()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            };
+        });
+        deButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    output.setText(String.valueOf(RSA.decrypt(Raw.getText()
+                            .toString())));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 
 
@@ -19,6 +51,7 @@ public class MainActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
         return true;
     }
 
@@ -36,4 +69,7 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
 }
