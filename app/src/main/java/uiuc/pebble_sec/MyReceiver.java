@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 public class MyReceiver extends BroadcastReceiver {
 
-    final SmsManager sms = SmsManager.getDefault();
+    //final SmsManager sms = SmsManager.getDefault();
 
     private static final String TAG = "SMSBroadcastReceiver";
 
@@ -23,8 +23,10 @@ public class MyReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // TODO: This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
+
     String action = intent.getAction();
     Log.i(TAG,"Broadcast received: " + intent.getAction());
+
         //gets SMS message
         if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
 
@@ -43,7 +45,7 @@ public class MyReceiver extends BroadcastReceiver {
                         Log.i("Receiver", "sender: " + sender + "message: " + text);
 
 
-                        //message alert to check if it works after try
+                        //message alert with sender's phone number and message
                         Toast.makeText(context, "sender" + sender + "Received Text: " + text, Toast.LENGTH_LONG).show();
                     }
                 }
